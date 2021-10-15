@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>1.0.1</Version>
+    <Authors>Shri Humrudha</Authors>
+    <Description>GitActionSharp is a .Net library to develop Git Actions YAML file</Description>
+    <Copyright>Copyright (c) Shri Humrudha</Copyright>
+    <PackageProjectUrl>https://github.com/ShriHumrudha/GitActionSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ShriHumrudha/GitActionSharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>GitActions; C# to YAML</PackageTags>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <PackageLicenseFile>C:\Users\shrija\source\repos\Github\GitActionSharp\LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+</Project>

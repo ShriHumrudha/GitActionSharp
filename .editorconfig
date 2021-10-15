@@ -1,0 +1,3 @@
+[*.cs]
+
+file_header_template = ---------------------------------------------------------------\nCopyright (c) Shri Humrudha Jagathisun All rights reserved.\n---------------------------------------------------------------
