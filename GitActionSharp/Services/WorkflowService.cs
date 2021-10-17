@@ -2,7 +2,6 @@
 // Copyright (c) Shri Humrudha Jagathisun All rights reserved.
 // ---------------------------------------------------------------
 
-using System;
 using GitActionSharp.Brokers.Outputs;
 using GitActionSharp.Brokers.Serializers;
 
@@ -21,7 +20,12 @@ namespace GitActionSharp.Services
             this.outputBroker = outputBroker;
         }
 
-        public void CreateWorkflow(string destinationPath, object workflow) =>
-            throw new NotImplementedException();
+        public void CreateWorkflow(string destinationPath, object workflow)
+        {
+            string serializedPipeline =
+                this.yamlBroker.SerializeToYaml(workflow);
+
+            this.outputBroker.GenerateFileOutput(destinationPath, serializedPipeline);
+        }
     }
 }
