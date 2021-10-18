@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using System.Security;
 using GitActionSharp.Brokers.Outputs;
 using GitActionSharp.Brokers.Serializers;
 using GitActionSharp.Models.Workflows;
@@ -38,6 +39,17 @@ namespace GitActionSharp.Tests.Unit.Services
                 new ArgumentNullException(),
                 new PathTooLongException(),
                 new DirectoryNotFoundException()
+            };
+        }
+
+        public static TheoryData FileDependencyExceptions()
+        {
+            return new TheoryData<Exception>
+            {
+                new IOException(),
+                new UnauthorizedAccessException(),
+                new NotSupportedException(),
+                new SecurityException()
             };
         }
 
