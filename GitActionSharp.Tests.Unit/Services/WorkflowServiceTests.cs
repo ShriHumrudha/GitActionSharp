@@ -2,12 +2,15 @@
 // Copyright (c) Shri Humrudha Jagathisun All rights reserved.
 // ---------------------------------------------------------------
 
+using System;
+using System.IO;
 using GitActionSharp.Brokers.Outputs;
 using GitActionSharp.Brokers.Serializers;
 using GitActionSharp.Models.Workflows;
 using GitActionSharp.Services;
 using Moq;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace GitActionSharp.Tests.Unit.Services
 {
@@ -25,6 +28,17 @@ namespace GitActionSharp.Tests.Unit.Services
             this.workflowService = new WorkflowService(
                 yamlBroker: this.yamlBrokerMock.Object,
                 outputBroker: this.outputBrokerMock.Object);
+        }
+
+        public static TheoryData FileValidationExceptions()
+        {
+            return new TheoryData<Exception>
+            {
+                new ArgumentException(),
+                new ArgumentNullException(),
+                new PathTooLongException(),
+                new DirectoryNotFoundException()
+            };
         }
 
         private static string GetRandomDestinationPath() =>
