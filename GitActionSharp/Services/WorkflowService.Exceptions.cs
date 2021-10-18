@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using System.Security;
 using GitActionSharp.Models.Workflows.Exceptions;
 
 namespace GitActionSharp.Services
@@ -41,6 +42,22 @@ namespace GitActionSharp.Services
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
                 throw new WorkflowDependencyValidationException(directoryNotFoundException);
+            }
+            catch (IOException ioException)
+            {
+                throw new WorkflowDependencyException(ioException);
+            }
+            catch (SecurityException securityException)
+            {
+                throw new WorkflowDependencyException(securityException);
+            }
+            catch (UnauthorizedAccessException unauthorizedAccessException)
+            {
+                throw new WorkflowDependencyException(unauthorizedAccessException);
+            }
+            catch (NotSupportedException notSupportedException)
+            {
+                throw new WorkflowDependencyException(notSupportedException);
             }
         }
     }

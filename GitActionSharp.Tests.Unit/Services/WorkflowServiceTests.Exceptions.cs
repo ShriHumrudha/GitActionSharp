@@ -55,7 +55,7 @@ namespace GitActionSharp.Tests.Unit.Services
         [Theory]
         [MemberData(nameof(FileDependencyExceptions))]
         public void ShouldThrowDependencyOnCreateIfDependencyErrorOccurs(
-            Exception dependencyValidationException)
+            Exception dependencyException)
         {
             // given
             Workflow someWorkflow = CreateRandomWorkflow();
@@ -63,7 +63,7 @@ namespace GitActionSharp.Tests.Unit.Services
 
             this.yamlBrokerMock.Setup(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()))
-                    .Throws(dependencyValidationException);
+                    .Throws(dependencyException);
 
             // when
             Action createWorkflowAction = () =>
@@ -72,12 +72,12 @@ namespace GitActionSharp.Tests.Unit.Services
                     someWorkflow);
 
             // then
-            WorkflowDependencyValidationException actualworkflowDependencyValidationException =
-                Assert.Throws<WorkflowDependencyValidationException>(
+            WorkflowDependencyException actualworkflowDependencyException =
+                Assert.Throws<WorkflowDependencyException>(
                     createWorkflowAction);
 
-            actualworkflowDependencyValidationException.InnerException.Message.Should()
-                .BeEquivalentTo(dependencyValidationException.Message);
+            actualworkflowDependencyException.InnerException.Message.Should()
+                .BeEquivalentTo(dependencyException.Message);
 
             this.yamlBrokerMock.Verify(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()),
