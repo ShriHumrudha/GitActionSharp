@@ -7,7 +7,7 @@ using GitActionSharp.Brokers.Serializers;
 
 namespace GitActionSharp.Services
 {
-    public class WorkflowService : IWorkflowService
+    public partial class WorkflowService : IWorkflowService
     {
         private readonly IYamlBroker yamlBroker;
         private readonly IOutputBroker outputBroker;
@@ -20,12 +20,15 @@ namespace GitActionSharp.Services
             this.outputBroker = outputBroker;
         }
 
-        public void CreateWorkflow(string destinationPath, object workflow)
+        public void CreateWorkflow(string destinationPath, object workflow) =>
+        TryCatch(() =>
         {
+            ValidateInput(destinationPath);
+
             string serializedPipeline =
                 this.yamlBroker.SerializeToYaml(workflow);
 
             this.outputBroker.GenerateFileOutput(destinationPath, serializedPipeline);
-        }
+        });
     }
 }
