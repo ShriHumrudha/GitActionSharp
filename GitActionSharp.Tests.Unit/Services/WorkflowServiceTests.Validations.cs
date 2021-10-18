@@ -48,7 +48,7 @@ namespace GitActionSharp.Tests.Unit.Services
         }
 
         [Fact]
-        public void ShouldThrowValidationExceptionOnCreateIfWorkflowPathIsNull()
+        public void ShouldThrowValidationExceptionOnCreateIfWorkflowIsNull()
         {
             // given
             string destinationPath = GetRandomDestinationPath();
