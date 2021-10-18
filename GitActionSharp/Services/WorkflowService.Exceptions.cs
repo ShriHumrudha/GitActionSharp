@@ -59,6 +59,10 @@ namespace GitActionSharp.Services
             {
                 throw new WorkflowDependencyException(notSupportedException);
             }
+            catch (Exception exception)
+            {
+                throw new WorkflowServiceException(exception);
+            }
         }
     }
 }
