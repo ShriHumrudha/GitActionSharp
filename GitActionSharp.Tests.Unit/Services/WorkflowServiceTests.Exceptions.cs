@@ -54,7 +54,7 @@ namespace GitActionSharp.Tests.Unit.Services
 
         [Theory]
         [MemberData(nameof(FileDependencyExceptions))]
-        public void ShouldThrowDependencyOnCreateIfDependencyErrorOccurs(
+        public void ShouldThrowDependencyExceptionOnCreateIfDependencyErrorOccurs(
             Exception dependencyException)
         {
             // given
@@ -78,6 +78,45 @@ namespace GitActionSharp.Tests.Unit.Services
 
             actualworkflowDependencyException.InnerException.Message.Should()
                 .BeEquivalentTo(dependencyException.Message);
+
+            this.yamlBrokerMock.Verify(broker =>
+                broker.SerializeToYaml(It.IsAny<object>()),
+                    Times.Once);
+
+            this.outputBrokerMock.Verify(broker =>
+                broker.GenerateFileOutput(It.IsAny<string>(), It.IsAny<string>()),
+                    Times.Never);
+
+            this.yamlBrokerMock.VerifyNoOtherCalls();
+            this.outputBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public void ShouldThrowServiceExceptionOnCreateIfExceptionOccurs()
+        {
+            // given
+            Workflow someWorkflow = CreateRandomWorkflow();
+            string somePath = GetRandomDestinationPath();
+            string someMessage = GetRandomString();
+            var exception = new Exception(someMessage);
+
+            this.yamlBrokerMock.Setup(broker =>
+                broker.SerializeToYaml(It.IsAny<object>()))
+                    .Throws(exception);
+
+            // when
+            Action createWorkflowAction = () =>
+                this.workflowService.CreateWorkflow(
+                    somePath,
+                    someWorkflow);
+
+            // then
+            WorkflowServiceException actualworkflowServiceException =
+                Assert.Throws<WorkflowServiceException>(
+                    createWorkflowAction);
+
+            actualworkflowServiceException.InnerException.Message.Should()
+                .BeEquivalentTo(exception.Message);
 
             this.yamlBrokerMock.Verify(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()),
