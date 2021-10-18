@@ -46,5 +46,39 @@ namespace GitActionSharp.Tests.Unit.Services
             this.yamlBrokerMock.VerifyNoOtherCalls();
             this.outputBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public void ShouldThrowValidationExceptionOnCreateIfWorkflowPathIsNull()
+        {
+            // given
+            string destinationPath = GetRandomDestinationPath();
+            Workflow nullWorkflow = null;
+            var nullWorkflowException = new NullWorfklowException();
+
+            // when
+            Action createWorkflowAction = () =>
+                this.workflowService.CreateWorkflow(
+                    destinationPath,
+                    nullWorkflow);
+
+            // then
+            WorkflowValidationException actualWorkflowValidationException =
+                Assert.Throws<WorkflowValidationException>(
+                    createWorkflowAction);
+
+            actualWorkflowValidationException.InnerException.Message.Should()
+                .BeEquivalentTo(nullWorkflowException.Message);
+
+            this.yamlBrokerMock.Verify(broker =>
+                broker.SerializeToYaml(It.IsAny<object>()),
+                    Times.Never);
+
+            this.outputBrokerMock.Verify(broker =>
+                broker.GenerateFileOutput(It.IsAny<string>(), It.IsAny<string>()),
+                    Times.Never);
+
+            this.yamlBrokerMock.VerifyNoOtherCalls();
+            this.outputBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
