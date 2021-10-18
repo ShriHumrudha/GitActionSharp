@@ -23,7 +23,7 @@ namespace GitActionSharp.Services
         public void CreateWorkflow(string destinationPath, object workflow) =>
         TryCatch(() =>
         {
-            ValidateInput(destinationPath);
+            ValidateInputs(destinationPath, workflow);
 
             string serializedPipeline =
                 this.yamlBroker.SerializeToYaml(workflow);

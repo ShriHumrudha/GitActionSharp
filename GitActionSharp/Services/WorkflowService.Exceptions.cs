@@ -20,6 +20,10 @@ namespace GitActionSharp.Services
             {
                 throw new WorkflowValidationException(nullPathException);
             }
+            catch (NullWorfklowException nullWorfklowException)
+            {
+                throw new WorkflowValidationException(nullWorfklowException);
+            }
         }
     }
 }

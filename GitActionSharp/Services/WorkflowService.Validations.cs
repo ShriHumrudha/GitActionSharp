@@ -8,11 +8,15 @@ namespace GitActionSharp.Services
 {
     public partial class WorkflowService
     {
-        public static void ValidateInput(string path)
+        public static void ValidateInputs(string path, object workflow)
         {
-            if (path == null)
+            switch (path, workflow)
             {
-                throw new NullPathException();
+                case (null, _):
+                    throw new NullPathException();
+
+                case (_, null):
+                    throw new NullWorfklowException();
             }
         }
     }
