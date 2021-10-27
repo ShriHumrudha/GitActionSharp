@@ -22,6 +22,14 @@ namespace GitActionSharp.Tests.Unit.Services
             Workflow someWorkflow = CreateRandomWorkflow();
             string somePath = GetRandomDestinationPath();
 
+            var failedWorkflowDependencyValidationException =
+                new FailedWorkflowDependencyValidationException(
+                    dependencyValidationException);
+
+            var expectedWorkflowDependencyValidationException =
+                new WorkflowDependencyValidationException(
+                    failedWorkflowDependencyValidationException);
+
             this.yamlBrokerMock.Setup(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()))
                     .Throws(dependencyValidationException);
@@ -37,8 +45,10 @@ namespace GitActionSharp.Tests.Unit.Services
                 Assert.Throws<WorkflowDependencyValidationException>(
                     createWorkflowAction);
 
-            actualworkflowDependencyValidationException.InnerException.Message.Should()
-                .BeEquivalentTo(dependencyValidationException.Message);
+            SameExceptionAs(
+                actualworkflowDependencyValidationException,
+                expectedWorkflowDependencyValidationException)
+                    .Should().BeTrue();
 
             this.yamlBrokerMock.Verify(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()),
@@ -61,6 +71,14 @@ namespace GitActionSharp.Tests.Unit.Services
             Workflow someWorkflow = CreateRandomWorkflow();
             string somePath = GetRandomDestinationPath();
 
+            var failedWorkflowDependencyException =
+                new FailedWorkflowDependencyException(
+                    dependencyException);
+
+            var expectedWorkflowDependencyException =
+                new WorkflowDependencyException(
+                    failedWorkflowDependencyException);
+
             this.yamlBrokerMock.Setup(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()))
                     .Throws(dependencyException);
@@ -76,8 +94,10 @@ namespace GitActionSharp.Tests.Unit.Services
                 Assert.Throws<WorkflowDependencyException>(
                     createWorkflowAction);
 
-            actualworkflowDependencyException.InnerException.Message.Should()
-                .BeEquivalentTo(dependencyException.Message);
+            SameExceptionAs(
+                actualworkflowDependencyException,
+                expectedWorkflowDependencyException)
+                    .Should().BeTrue();
 
             this.yamlBrokerMock.Verify(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()),
@@ -100,6 +120,13 @@ namespace GitActionSharp.Tests.Unit.Services
             string someMessage = GetRandomString();
             var exception = new Exception(someMessage);
 
+            var failedWorkflowServiceException =
+                new FailedWorkflowServiceException(exception);
+
+            var expectedWorkflowServiceException =
+                new WorkflowServiceException(
+                    failedWorkflowServiceException);
+
             this.yamlBrokerMock.Setup(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()))
                     .Throws(exception);
@@ -115,8 +142,10 @@ namespace GitActionSharp.Tests.Unit.Services
                 Assert.Throws<WorkflowServiceException>(
                     createWorkflowAction);
 
-            actualworkflowServiceException.InnerException.Message.Should()
-                .BeEquivalentTo(exception.Message);
+            SameExceptionAs(
+                actualworkflowServiceException,
+                expectedWorkflowServiceException)
+                    .Should().BeTrue();
 
             this.yamlBrokerMock.Verify(broker =>
                 broker.SerializeToYaml(It.IsAny<object>()),

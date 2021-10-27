@@ -2,14 +2,15 @@
 // Copyright (c) Shri Humrudha Jagathisun All rights reserved.
 // ---------------------------------------------------------------
 
+using System;
 using Xeptions;
 
 namespace GitActionSharp.Models.Workflows.Exceptions
 {
-    public class NullPathException : Xeption
+    public class FailedWorkflowDependencyValidationException : Xeption
     {
-        public NullPathException()
-            : base(message: "Path is null.")
+        public FailedWorkflowDependencyValidationException(Exception innerException)
+            : base(message: "Failed workflow dependency validation exception, fix the error and try again.", innerException)
         { }
     }
 }

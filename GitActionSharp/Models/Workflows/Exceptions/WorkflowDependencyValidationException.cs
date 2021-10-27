@@ -2,13 +2,13 @@
 // Copyright (c) Shri Humrudha Jagathisun All rights reserved.
 // ---------------------------------------------------------------
 
-using System;
+using Xeptions;
 
 namespace GitActionSharp.Models.Workflows.Exceptions
 {
-    public class WorkflowDependencyValidationException : Exception
+    public class WorkflowDependencyValidationException : Xeption
     {
-        public WorkflowDependencyValidationException(Exception innerException)
+        public WorkflowDependencyValidationException(Xeption innerException)
             : base(message: "Workflow dependency validation error occurred, try again.", innerException)
         { }
     }

@@ -11,6 +11,7 @@ using GitActionSharp.Models.Workflows;
 using GitActionSharp.Services;
 using Moq;
 using Tynamix.ObjectFiller;
+using Xeptions;
 using Xunit;
 
 namespace GitActionSharp.Tests.Unit.Services
@@ -51,6 +52,12 @@ namespace GitActionSharp.Tests.Unit.Services
                 new NotSupportedException(),
                 new SecurityException()
             };
+        }
+
+        private bool SameExceptionAs(Xeption actualException, Xeption expectedException)
+        {
+            return actualException.Message == expectedException.Message
+                && actualException.InnerException.Message == expectedException.InnerException.Message;
         }
 
         private static string GetRandomDestinationPath() =>

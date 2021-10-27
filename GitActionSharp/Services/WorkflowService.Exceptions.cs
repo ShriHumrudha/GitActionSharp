@@ -29,39 +29,83 @@ namespace GitActionSharp.Services
             }
             catch (ArgumentNullException argumentNullException)
             {
-                throw new WorkflowDependencyValidationException(argumentNullException);
+                var failedWorkflowDependencyValidationException =
+                    new FailedWorkflowDependencyValidationException(
+                        argumentNullException);
+
+                throw new WorkflowDependencyValidationException(
+                    failedWorkflowDependencyValidationException);
             }
             catch (ArgumentException argumentException)
             {
-                throw new WorkflowDependencyValidationException(argumentException);
+                var failedWorkflowDependencyValidationException =
+                   new FailedWorkflowDependencyValidationException(
+                       argumentException);
+
+                throw new WorkflowDependencyValidationException(
+                    failedWorkflowDependencyValidationException);
             }
             catch (PathTooLongException pathTooLongException)
             {
-                throw new WorkflowDependencyValidationException(pathTooLongException);
+                var failedWorkflowDependencyValidationException =
+                   new FailedWorkflowDependencyValidationException(
+                       pathTooLongException);
+
+                throw new WorkflowDependencyValidationException(
+                    failedWorkflowDependencyValidationException);
             }
             catch (DirectoryNotFoundException directoryNotFoundException)
             {
-                throw new WorkflowDependencyValidationException(directoryNotFoundException);
+                var failedWorkflowDependencyValidationException =
+                   new FailedWorkflowDependencyValidationException(
+                       directoryNotFoundException);
+
+                throw new WorkflowDependencyValidationException(
+                    failedWorkflowDependencyValidationException);
             }
             catch (IOException ioException)
             {
-                throw new WorkflowDependencyException(ioException);
+                var failedWorkflowDependencyException =
+                   new FailedWorkflowDependencyException(
+                       ioException);
+
+                throw new WorkflowDependencyException(
+                    failedWorkflowDependencyException);
             }
             catch (SecurityException securityException)
             {
-                throw new WorkflowDependencyException(securityException);
+                var failedWorkflowDependencyException =
+                   new FailedWorkflowDependencyException(
+                       securityException);
+
+                throw new WorkflowDependencyException(
+                    failedWorkflowDependencyException);
             }
             catch (UnauthorizedAccessException unauthorizedAccessException)
             {
-                throw new WorkflowDependencyException(unauthorizedAccessException);
+                var failedWorkflowDependencyException =
+                   new FailedWorkflowDependencyException(
+                       unauthorizedAccessException);
+
+                throw new WorkflowDependencyException(
+                    failedWorkflowDependencyException);
             }
             catch (NotSupportedException notSupportedException)
             {
-                throw new WorkflowDependencyException(notSupportedException);
+                var failedWorkflowDependencyException =
+                   new FailedWorkflowDependencyException(
+                       notSupportedException);
+
+                throw new WorkflowDependencyException(
+                    failedWorkflowDependencyException);
             }
             catch (Exception exception)
             {
-                throw new WorkflowServiceException(exception);
+                var failedWorkflowSericeException =
+                    new FailedWorkflowServiceException(exception);
+
+                throw new WorkflowServiceException(
+                    failedWorkflowSericeException);
             }
         }
     }

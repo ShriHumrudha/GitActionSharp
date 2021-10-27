@@ -2,13 +2,13 @@
 // Copyright (c) Shri Humrudha Jagathisun All rights reserved.
 // ---------------------------------------------------------------
 
-using System;
+using Xeptions;
 
 namespace GitActionSharp.Models.Workflows.Exceptions
 {
-    public class WorkflowServiceException : Exception
+    public class WorkflowServiceException : Xeption
     {
-        public WorkflowServiceException(Exception innerException)
+        public WorkflowServiceException(Xeption innerException)
             : base(message: "Workflow service error occurred, contact support.", innerException)
         { }
     }
