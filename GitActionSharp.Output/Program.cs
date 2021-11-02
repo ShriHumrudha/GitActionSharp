@@ -25,14 +25,17 @@ namespace GitActionSharp.Output
 
                 Jobs = new Job
                 {
-                    RunsOn = Machine.WindowsLatest,
-
-                    Steps = new List<GitActionTask>
+                    Echo = new EchoJob
                     {
-                        new Echo
+                        RunsOn = Machine.WindowsLatest,
+
+                        Steps = new List<GitActionTask>
                         {
-                            Name = "Print",
-                            Run = "echo My First Git Action using GitActionSharp."
+                            new Echo
+                            {
+                                Name = "Print",
+                                Run = "echo My First Git Action using GitActionSharp."
+                            }
                         }
                     }
                 }
