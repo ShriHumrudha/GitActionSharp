@@ -1,0 +1,7 @@
+name: Hello World!
+on: push
+jobs:
+  runs-on: windows-Latest
+  steps:
+  - name: Print
+    run: echo My First Git Action using GitActionSharp.
